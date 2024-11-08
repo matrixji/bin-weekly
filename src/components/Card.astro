@@ -1,0 +1,13 @@
+---
+const { post } = Astro.props;
+
+import { parsePostNumber, parsePostTitle } from "@/util";
+
+const title = parsePostTitle(post);
+const number = parsePostNumber(post);
+
+---
+
+<div class="card">
+    <a href={post.url}>No.{number} -  {title}</a>
+</div>

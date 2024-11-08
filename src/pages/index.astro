@@ -1,0 +1,23 @@
+---
+import Card from '../components/Card.astro';
+import Head from '../components/Head.astro';
+
+import { sortPosts } from '@/util';
+
+const posts = await Astro.glob('./posts/*.md');
+const allPosts = sortPosts(posts);
+console.log(allPosts.length);
+---
+
+<html lang="zh">
+	<head>
+		<Head/>
+	</head>
+	<body>
+		<div>
+			<img src="/favicon.svg" alt="logo" width="32"/>
+			BIN 周刊
+		</div>
+		{allPosts.map((p: any) => <Card post={p} />)}
+	</body>
+</html>
