@@ -1,0 +1,4 @@
+fonttools
+brotli
+pillow
+pillow-heif

@@ -1,0 +1,15 @@
+---
+import { config } from "@/config";
+
+const siteTitle = config.site.title;
+const siteLogo = config.site.logo;
+---
+
+<div class="flex md:ml-0 px-2 space-x-2 items-center">
+    <a href="/">
+      <img src={siteLogo} alt={siteLogo} width="40" class="rounded-md" />
+    </a>
+    <a href="/">
+      <h1 class="text-3xl font-bold">{siteTitle}</h1>
+    </a>
+</div>

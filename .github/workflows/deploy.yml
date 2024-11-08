@@ -1,0 +1,30 @@
+name: "Deyloy"
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  deploy-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: build
+        env:
+          LANG: en_US.utf-8
+          TZ: Asia/Shanghai
+        run: |
+          pip install -r py/requirements.txt
+          npm install
+          npm run build
+      - name: install ssh key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSHKEY_JIBIN_NET }} 
+          known_hosts: ~/.ssh/known_hosts
+      - name: deploy site
+        run: |
+          rsync -avpz -e "ssh -o StrictHostKeyChecking=no" --delete dist/ root@c4.jibin.net:/opt/w.jibin.net

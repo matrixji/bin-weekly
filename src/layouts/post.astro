@@ -1,0 +1,69 @@
+---
+import { parseArticleTitle, sortPosts } from "@/util";
+import type { MarkdownLayoutProps } from "astro";
+import Head from "../components/Head.astro";
+import LeftSidebar from "../components/LeftSidebar.astro";
+import ThemeSwitch from "../components/ThemeSwitch.astro";
+
+// css for post
+import "../styles/post.css";
+
+type Props = MarkdownLayoutProps<{
+  title: string;
+}>;
+
+const { frontmatter } = Astro.props;
+
+const posts = sortPosts(await Astro.glob("../pages/posts/*.md"));
+const post = posts.find((post) => post.url === frontmatter.url);
+
+const articleTitle = parseArticleTitle(post);
+---
+
+<html lang="zh">
+  <head>
+    <Head title={articleTitle} />
+  </head>
+  <body class="justify-items-center">
+    <div class="flex flex-row max-w-[1400px]">
+      <div class="ml-4 w-[240px] min-w-[240px] hidden md:block">
+        <LeftSidebar post={post} posts={posts} />
+      </div>
+      <div
+        class="md:pb-20 pb-14 xl:max-w-7xl w-full lg:max-w-5xl md:max-w-2xl mx-2"
+      >
+        <div class="flex pt-3">
+          <h1 class="text-3xl font-bold">{articleTitle}</h1>
+        </div>
+        <div id="md-content" class="pt-3">
+          <slot />
+        </div>
+      </div>
+    </div>
+    <ThemeSwitch />
+  </body>
+</html>
+
+<!-- zoom -->
+<script>
+  import mediumZoom from "medium-zoom";
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!/Android|iPhone/i.test(navigator.userAgent)) {
+      const zoom = mediumZoom("#md-content img", {
+        margin: 10,
+      });
+      zoom.on("open", () => {
+        const theme = document.body.getAttribute("data-theme");
+        if (theme === "dark") {
+          zoom.update({
+            background: "rgba(0, 0, 0, 0.9)",
+          });
+        } else {
+          zoom.update({
+            background: "rgba(255, 255, 255, 0.9)",
+          });
+        }
+      });
+    }
+  });
+</script>

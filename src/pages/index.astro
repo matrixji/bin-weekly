@@ -1,0 +1,32 @@
+---
+import Container from "@/components/Container.astro";
+import Card from "../components/Card.astro";
+import Head from "../components/Head.astro";
+import IndexHeader from "../components/IndexHeader.astro";
+import ThemeSwitch from "../components/ThemeSwitch.astro";
+
+import { sortPosts } from "@/util";
+
+const posts = await Astro.glob("./posts/*.md");
+const allPosts = sortPosts(posts);
+---
+
+<html lang="zh">
+  <head>
+    <Head />
+    <link rel="manifest" href="/manifest.json" />
+  </head>
+  <body>
+    <Container>
+      <IndexHeader />
+    </Container>
+    <Container>
+      <div
+        class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-0 mr-0"
+      >
+        {allPosts.map((p) => <Card post={p} />)}
+      </div>
+    </Container>
+    <ThemeSwitch />
+  </body>
+</html>

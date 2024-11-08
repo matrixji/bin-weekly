@@ -1,0 +1,21 @@
+{
+    "short_name": "BIN周刊",
+    "name": "BIN周刊",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "64x64 32x32 24x24 16x16 192x192 512x512",
+            "type": "image/x-icon"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#fff",
+    "theme_color": "#000",
+    "description": "BIN周刊: 一周一次，分享所见所闻、所思所想",
+    "scope": "/",
+    "lang": "zh-CN",
+    "dir": "ltr",
+    "orientation": "any",
+    "prefer_related_applications": false
+}

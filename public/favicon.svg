@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" width="400" height="400">
+    <rect x="0" y="0" width="200" height="400" fill="#333" />
+    <rect x="200" y="0" width="200" height="400" fill="#ccc" />
+    <path
+        d="M 39 98
+           L 39 200
+           L 79 200
+           C 129 200 129 150 129 149
+           C 129 148 129 98 79 98
+           Z
+
+           M 39 200
+           L 39 302
+           L 79 302
+           C 129 302 129 251 129 250
+           C 129 249 129 200 79 200
+           Z
+           "
+        fill="none"
+        stroke="#ccc"
+        stroke-width="24" />
+
+
+    <path
+        d="M 155 98
+           L 200 98
+           M 155 302
+           L 200 302
+           "
+        fill="none"
+        stroke="#ccc"
+        stroke-width="24" />
+
+    <path
+        d="M 194 98 L 194 302"
+        fill="none"
+        stroke="#ccc"
+        stroke-width="12" />
+
+
+    <path
+        d="M 200 98
+           L 245 98
+           M 200 302
+           L 245 302
+           "
+        fill="none"
+        stroke="#333"
+        stroke-width="24" />
+
+    <path
+        d="M 206 98 L 206 302"
+        fill="none"
+        stroke="#333"
+        stroke-width="12" />
+
+    <path
+        d="M 265 314
+           L 289 314
+           L 289 155
+           L 349 314
+           L 373 314
+           L 373 86
+           L 349 86
+           L 349 245
+           L 289 86
+           L 265 86
+           Z
+           "
+        fill="#333"
+        stroke="#333"
+        stroke-width="1" />
+</svg>
