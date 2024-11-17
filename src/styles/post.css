@@ -9,6 +9,9 @@
 
 #md-content img {
   cursor: zoom-in;
+  max-height: 75vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #md-content p {

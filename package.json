@@ -8,9 +8,9 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "prestart": "python py/patch_post_images.py",
-    "predev": "python py/patch_post_images.py",
-    "prebuild": "python py/patch_post_images.py"
+    "prestart": "node scripts/compress_fonts.js && python py/patch_post_images.py",
+    "predev": "node scripts/compress_fonts.js && python py/patch_post_images.py",
+    "prebuild": "node scripts/compress_fonts.js && python py/patch_post_images.py"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
+    "fontmin": "^1.1.0",
     "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^3.4.14"
   }

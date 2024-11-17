@@ -1,6 +1,6 @@
 @font-face {
   font-family: "LXGW WenKai Screen R";
-  src: url("fonts/LXGWWenKaiScreen.woff2") format("woff2");
+  src: url("/fonts/LXGWWenKaiScreen.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
