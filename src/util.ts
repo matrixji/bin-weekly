@@ -48,13 +48,17 @@ export const parsePostNumber = (post: MarkdownInstance<Record<string, any>>) => 
     return "9999";
 }
 
-export const getYmdFormNumber = (num: string) => {
+export const getYmdFormNumber = (post: MarkdownInstance<Record<string, any>>) => {
+    if (post.frontmatter && post.frontmatter.date) {
+        return moment(post.frontmatter.date).utc().format("YYYY/MM/DD");
+    }
+    const num = parsePostNumber(post);
     const year = parseInt(num.slice(0, 2)) + 2000;
     const week = parseInt(num.slice(2, 4));
     if (week === 0) {
-        return moment().year(year).month(1).day(0).format("YYYY/MM/DD");
+        return moment().year(year).month(0).date(1).utc().format("YYYY/MM/DD");
     }
-    return moment().year(year).week(week).weekday(1).format("YYYY/MM/DD");
+    return moment().year(year).week(week).weekday(7).utc().format("YYYY/MM/DD");
 }
 
 
