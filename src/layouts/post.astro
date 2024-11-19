@@ -24,8 +24,8 @@ const articleTitle = parseArticleTitle(post);
   <head>
     <Head title={articleTitle} />
   </head>
-  <body class="justify-items-center">
-    <div class="flex flex-row max-w-[1400px]">
+  <body>
+    <div class="flex flex-row max-w-[1400px] mx-auto">
       <div class="ml-4 w-[240px] min-w-[240px] hidden md:block">
         <LeftSidebar post={post} posts={posts} />
       </div>
@@ -35,9 +35,11 @@ const articleTitle = parseArticleTitle(post);
         <div class="flex pt-3">
           <h1 class="text-3xl font-bold">{articleTitle}</h1>
         </div>
-        <div id="md-content" class="pt-3">
+        <article
+          id="mdx"
+          class="pt-3 prose dark:prose-invert">
           <slot />
-        </div>
+        </article>
       </div>
     </div>
     <ThemeSwitch />
@@ -49,7 +51,7 @@ const articleTitle = parseArticleTitle(post);
   import mediumZoom from "medium-zoom";
   document.addEventListener("DOMContentLoaded", () => {
     if (!/Android|iPhone/i.test(navigator.userAgent)) {
-      const zoom = mediumZoom("#md-content img", {
+      const zoom = mediumZoom("#mdx img", {
         margin: 10,
       });
       zoom.on("open", () => {
@@ -65,5 +67,17 @@ const articleTitle = parseArticleTitle(post);
         }
       });
     }
+  });
+</script>
+
+<!-- all external link use blank -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll("a");
+    links.forEach((link) => {
+      if (link.hostname !== window.location.hostname) {
+        link.target = "_blank";
+      }
+    });
   });
 </script>

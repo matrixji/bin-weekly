@@ -15,7 +15,7 @@ const { posts, post } = Astro.props;
             <li class="pt-2 max-w-[208px] w-[208px] min-w-[208px] overflow-x-hidden line-clamp-1">
               <a
                 href={p.url}
-                class={`${post.url === p.url ? "font-bold title-link-active" : "title-link"}`}
+                class={`${post.url === p.url ? "title-link-active" : "title-link"}`}
               >
                 {parseArticleTitle(p)}
               </a>
