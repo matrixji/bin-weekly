@@ -48,7 +48,10 @@ export const parsePostNumber = (post: MarkdownInstance<Record<string, any>>) => 
     return "9999";
 }
 
-export const getYmdFormNumber = (post: MarkdownInstance<Record<string, any>>) => {
+export const getYmdFormPost = (post: MarkdownInstance<Record<string, any>> | undefined) => {
+    if (post === undefined) {
+        return moment().format("YYYY/MM/DD");
+    }
     if (post.frontmatter && post.frontmatter.date) {
         return moment(post.frontmatter.date).utc().format("YYYY/MM/DD");
     }

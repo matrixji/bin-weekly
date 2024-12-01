@@ -52,6 +52,15 @@ function defaultPicPlugin() {
   };
 }
 
+function defaultDatePlugin() {
+  return function (tree: any, file: any) {
+    const { frontmatter } = file.data.astro;
+    if (!frontmatter.date) {
+      frontmatter.date = new Date().toISOString();
+    }
+  };
+}
+
 function defaultSummaryPlugin() {
   return function (tree: any, file: any) {
     const { frontmatter } = file.data.astro;

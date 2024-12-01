@@ -1,14 +1,10 @@
 ---
 const { post } = Astro.props;
 
-import {
-getYmdFormNumber,
-parseArticleSummary,
-parseArticleTitle
-} from "@/util";
+import { getYmdFormPost, parseArticleSummary, parseArticleTitle } from "@/util";
 
 const title = parseArticleTitle(post);
-const dateText = getYmdFormNumber(post);
+const dateText = getYmdFormPost(post);
 const summary = parseArticleSummary(post);
 ---
 
