@@ -80,6 +80,27 @@ function defaultSummaryPlugin() {
   };
 }
 
+function applyCustomCommentsPlugin() {
+  return function (tree: any) {
+    let doPatchNext = ''
+    for (const node of tree.children) {
+      if (node.type === "raw" && node.value.startsWith("<!--")) {
+        doPatchNext = node.value.replace("<!--", "").replace("-->", "").trim()
+      }
+      if (node.type === "element" && node.tagName === "p") {
+        if (doPatchNext.startsWith("+")) {
+          const addedClass = doPatchNext.replace("+", "")
+          node.properties = {
+            ...node.properties,
+            class: addedClass
+          }
+        }
+        doPatchNext = ''
+      }
+    }
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   prefetch: true,
@@ -89,6 +110,9 @@ export default defineConfig({
       defaultPicPlugin,
       defaultSummaryPlugin,
     ],
+    rehypePlugins: [
+      applyCustomCommentsPlugin,
+    ]
   },
   vite: {
     assetsInclude: ["**/*.HEIC"],

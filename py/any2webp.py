@@ -8,7 +8,7 @@ from pillow_heif import register_heif_opener
 register_heif_opener()
 
 
-def transform(input, output, max_width=1920):
+def transform(input, output, max_height=1080):
     im = Image.open(input)
 
     # keep exif
@@ -16,8 +16,8 @@ def transform(input, output, max_width=1920):
 
 
     # reshape if needed
-    if im.width > max_width:
-        im = im.resize((max_width, int(im.height * max_width / im.width)))
+    if im.height > max_height:
+        im = im.resize((int(im.width * max_height / im.height), max_height))
 
     if not output:
         output = input[:input.rfind('.')] + '.webp'
@@ -38,8 +38,8 @@ def main():
         input, output = sys.argv[1], sys.argv[2]
 
     if len(sys.argv) >= 4:
-        max_width = int(sys.argv[3])
-        transform(input, output, max_width)
+        max_height = int(sys.argv[3])
+        transform(input, output, max_height)
     else:
         transform(input, output)
 
