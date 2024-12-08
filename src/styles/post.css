@@ -65,3 +65,11 @@ p.grid-r1 {
 p.grid-r2 {
   grid-template-columns: 1fr 1fr;
 }
+
+p.grid-r3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+p.grid-r4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
