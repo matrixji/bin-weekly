@@ -24,7 +24,6 @@ const nextPost = index === 0 ? null : posts[index - 1];
 
 const articleTitle = parseArticleTitle(post);
 const articleDate = getYmdFormPost(post);
-
 ---
 
 <html lang="zh">
@@ -37,12 +36,12 @@ const articleDate = getYmdFormPost(post);
         <LeftSidebar post={post} posts={posts} />
       </div>
       <div
-        class="md:pb-20 pb-14 xl:max-w-7xl xl:min-w-[760px] w-full lg:max-w-5xl lg:min-w-[600px] md:max-w-2xl mx-2"
+        class="md:pb-20 pb-14 xl:max-w-7xl xl:min-w-[760px] w-full lg:max-w-5xl lg:min-w-[600px] md:max-w-2xl"
       >
-        <div class="flex pt-3">
-          <h1 class="text-3xl font-bold">{articleTitle}</h1>
-        </div>
-        <div id="mdx" class="pt-3">
+        <div id="mdx" class="pt-3 mx-2 px-5 py-5">
+          <div class="flex">
+            <h1 class="text-3xl font-bold">{articleTitle}</h1>
+          </div>
           <article class="prose dark:prose-invert">
             <slot />
           </article>
@@ -70,7 +69,8 @@ const articleDate = getYmdFormPost(post);
         });
       }
     });
-  }
+  };
+
   document.addEventListener("DOMContentLoaded", () => {
     if (!/Android|iPhone/i.test(navigator.userAgent)) {
       const zoom = mediumZoom("#mdx img", {

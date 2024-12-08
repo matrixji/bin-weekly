@@ -20,6 +20,10 @@ const fetchAllCharacters = (path) => {
         chars.forEach((char) => {
           characters.add(char);
         });
+        // add filename
+        filepath.split("").forEach((char) => {
+          characters.add(char);
+        });
       }
     }
   });

@@ -8,7 +8,7 @@ const { twitter, github } = config.site;
 const menus = [
   {
     name: "首页",
-    url: '/',
+    url: "/",
   },
 ];
 
@@ -48,18 +48,22 @@ if (twitter) {
   <div id="article-footer">
     <ul class="list-none flex">
       {
-        menus.map((menu, index) => (
+        menus.map((menu, index) =>
           index === 0 ? (
             <li class="mr-2">
-              <a href={menu.url} class="title-link">{menu.name}</a>
+              <a href={menu.url} class="title-link">
+                {menu.name}
+              </a>
             </li>
           ) : (
-            <span class="mr-2">|</span>
             <li class="mr-2">
-              <a href={menu.url} class="title-link">{menu.name}</a>
+              <span class="mr-2">|</span>
+              <a href={menu.url} class="title-link">
+                {menu.name}
+              </a>
             </li>
-          )
-        ))
+          ),
+        )
       }
     </ul>
   </div>
