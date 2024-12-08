@@ -57,24 +57,32 @@ const articleDate = getYmdFormPost(post);
 <!-- zoom -->
 <script>
   import mediumZoom from "medium-zoom";
+  const enableZoom = (zoom: any) => {
+    zoom.on("open", () => {
+      const theme = document.body.getAttribute("data-theme");
+      if (theme === "dark") {
+        zoom.update({
+          background: "rgba(0, 0, 0, 0.9)",
+        });
+      } else {
+        zoom.update({
+          background: "rgba(255, 255, 255, 0.9)",
+        });
+      }
+    });
+  }
   document.addEventListener("DOMContentLoaded", () => {
     if (!/Android|iPhone/i.test(navigator.userAgent)) {
       const zoom = mediumZoom("#mdx img", {
         margin: 10,
       });
-      zoom.on("open", () => {
-        const theme = document.body.getAttribute("data-theme");
-        if (theme === "dark") {
-          zoom.update({
-            background: "rgba(0, 0, 0, 0.9)",
-          });
-        } else {
-          zoom.update({
-            background: "rgba(255, 255, 255, 0.9)",
-          });
-        }
-      });
+      enableZoom(zoom);
     }
+    // always zoom for p.grid > img
+    const zoomForGrid = mediumZoom("p.grid img", {
+      margin: 10,
+    });
+    enableZoom(zoomForGrid);
   });
 </script>
 
