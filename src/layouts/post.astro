@@ -97,3 +97,16 @@ const articleDate = getYmdFormPost(post);
     });
   });
 </script>
+
+<!-- add exif info for img -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const imgs = document.querySelectorAll("article img");
+    imgs.forEach((img) => {
+      const exif = img.getAttribute("data-exif");
+      if (exif) {
+        console.log(exif)
+      }
+    });
+  });
+</script>

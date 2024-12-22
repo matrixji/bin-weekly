@@ -1,6 +1,24 @@
 import os
 
 from any2webp import transform
+from PIL import Image
+
+
+def create_exif_for_webp(filepath):
+    if not os.path.exists(filepath):
+        return
+    exif_filepath = filepath + '.exif.txt'
+    if os.path.exists(exif_filepath):
+        return
+    img = Image.open(filepath)
+    exif = img.getexif()
+    if exif:
+        camera_model = exif.get(272, '')
+        camera_make = exif.get(271, '')
+        datetime = exif.get(306, '')
+        if camera_make or camera_model or datetime:
+            with open(exif_filepath, 'w') as f:
+                f.write(f'by: {camera_make} {camera_model}, {datetime}')
 
 
 def patch_md_images(md_file, images_dir, dest_images_dir):
@@ -39,6 +57,7 @@ def patch_md_images(md_file, images_dir, dest_images_dir):
                 print(f'Converted {d_filepath_full} to {d_thumb_filepath}')
                 first_done = True
             lines[i] = line.replace(filepath, d_filepath)
+            # create_exif_for_webp(d_filepath_full)
     with open(md_file, 'w') as f:
         f.writelines(lines)
         
