@@ -1,0 +1,57 @@
+@font-face {
+  font-family: "LXGW WenKai Screen R";
+  src: url("/fonts/LXGWWenKaiScreen.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --font-fallback: LXGW WenKai Screen R, Helvetica, Arial, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji;
+  --font-body: var(--font-fallback);
+  --font-mono: "SF Mono", Consolas, Monaco, "Courier New", Courier, monospace;
+}
+
+:root {
+  color-scheme: light;
+  --theme-bg: #f6f6f6;
+  --theme-text: #333;
+  --theme-text-secondary: #444;
+  --title-link-color: #69f;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --theme-bg: #1a1a1a;
+  --theme-text: #ccc;
+  --theme-text-secondary: #bbb;
+  --title-link-color: #f96;
+}
+
+body {
+  background: var(--theme-bg);
+  color: var(--theme-text);
+  font-family: var(--font-body);
+  letter-spacing: 0.5px;
+}
+
+.secondary-text {
+  color: var(--theme-text-secondary);
+}
+
+a.title-link-active {
+  color: var(--title-link-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a.title-link-active:hover {
+  color: var(--title-link-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a.title-link:hover {
+  color: var(--title-link-color);
+  text-decoration: underline;
+}

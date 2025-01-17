@@ -1,0 +1,37 @@
+---
+import { config } from "@/config";
+import Logo from "./Logo.astro";
+
+const { twitter, github } = config.site;
+
+const menus = [];
+if (github) {
+  menus.push({
+    name: "Github",
+    url: github,
+  });
+}
+if (twitter) {
+  menus.push({
+    name: "Twitter",
+    url: twitter,
+  });
+}
+---
+
+<div class="flex justify-between items-center">
+  <Logo />
+  <div>
+    <ul class="list-none flex">
+      {
+        menus.map((menu) => (
+          <li class="mr-4">
+            <a href={menu.url} class="title-link font-bold">
+              {menu.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>

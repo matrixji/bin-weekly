@@ -1,0 +1,57 @@
+---
+const { post } = Astro.props;
+
+import { getYmdFormPost, parseArticleSummary, parseArticleTitle } from "@/util";
+
+const title = parseArticleTitle(post);
+const dateText = getYmdFormPost(post);
+const summary = parseArticleSummary(post);
+const isDraft =
+  post.frontmatter.draft === true ||
+  title.toLowerCase().includes("draft") ||
+  title.toLowerCase().includes("草稿");
+---
+
+<a
+  href={post.url}
+  class="card flex flex-col mx-auto my-2 shadow-lg dark:shadow-gray-700 rounded-md"
+  data-draft={isDraft.toString()}
+>
+  <div class="block md:w-80 md:h-48 w-96 h-52 rounded-t-md overflow-hidden">
+    <img src={post.frontmatter.pic} class="w-full h-full object-cover" />
+  </div>
+  <div class="w-full flex justify-between items-center leading-tight pt-4 px-3">
+    <div>{title}</div>
+    <div>{dateText}</div>
+  </div>
+  <div
+    class="secondary-text rounded-b-md text-sm md:w-80 w-96 overflow-hidden h-12 pt-2"
+  >
+    <span class="px-2 line-clamp-2">
+      {summary}
+    </span>
+  </div>
+</a>
+
+<script>
+  import { config } from "@/config";
+  if (document.location.href.startsWith(config.site.url)) {
+    document.addEventListener("DOMContentLoaded", () => {
+      const cards = document.querySelectorAll("a[data-draft='true']");
+      // hidden
+      cards.forEach((card) => {
+        card.classList.add("hidden");
+      });
+    });
+  } else {
+    // for dev
+    const cards = document.querySelectorAll("a[data-draft='true']");
+    // add opacity and border
+    cards.forEach((card) => {
+      card.classList.add("opacity-60");
+      card.classList.add("border-2");
+      card.classList.add("border-gray-500");
+      card.classList.add("border-dashed");
+    });
+  }
+</script>

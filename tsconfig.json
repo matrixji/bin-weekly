@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@layouts/*": ["./src/layouts/*"],
+      "@/*": ["./src/*"]
+    },
+    "strict": true,
+    "baseUrl": "."
+  },
+  "extends": "astro/tsconfigs/strict"
+}

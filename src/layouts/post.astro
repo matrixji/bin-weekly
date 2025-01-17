@@ -1,0 +1,112 @@
+---
+import { parseArticleTitle, getYmdFormPost, sortPosts } from "@/util";
+import type { MarkdownLayoutProps } from "astro";
+import Head from "../components/Head.astro";
+import LeftSidebar from "../components/LeftSidebar.astro";
+import ThemeSwitch from "../components/ThemeSwitch.astro";
+import ArticleFooter from "../components/ArticleFooter.astro";
+
+// css for post
+import "../styles/post.css";
+
+type Props = MarkdownLayoutProps<{
+  title: string;
+}>;
+
+const { frontmatter } = Astro.props;
+
+const posts = sortPosts(await Astro.glob("../pages/posts/*.md"));
+const post = posts.find((post) => post.url === frontmatter.url);
+
+const index = post ? posts.indexOf(post) : -1;
+const prevPost = index === posts.length - 1 ? null : posts[index + 1];
+const nextPost = index === 0 ? null : posts[index - 1];
+
+const articleTitle = parseArticleTitle(post);
+const articleDate = getYmdFormPost(post);
+---
+
+<html lang="zh">
+  <head>
+    <Head title={articleTitle} />
+  </head>
+  <body>
+    <div class="flex flex-row max-w-[1400px] mx-auto">
+      <div class="ml-4 w-[240px] min-w-[240px] hidden md:block">
+        <LeftSidebar post={post} posts={posts} />
+      </div>
+      <div
+        class="md:pb-20 pb-14 xl:max-w-7xl xl:min-w-[760px] w-full lg:max-w-5xl lg:min-w-[600px] md:max-w-2xl"
+      >
+        <div id="mdx" class="pt-3 mx-2 px-5 py-5">
+          <div class="flex">
+            <h1 class="text-3xl font-bold">{articleTitle}</h1>
+          </div>
+          <article class="prose dark:prose-invert">
+            <slot />
+          </article>
+          <ArticleFooter prev={prevPost} next={nextPost} date={articleDate} />
+        </div>
+      </div>
+      <ThemeSwitch />
+    </div>
+  </body>
+</html>
+
+<!-- zoom -->
+<script>
+  import mediumZoom from "medium-zoom";
+  const enableZoom = (zoom: any) => {
+    zoom.on("open", () => {
+      const theme = document.body.getAttribute("data-theme");
+      if (theme === "dark") {
+        zoom.update({
+          background: "rgba(0, 0, 0, 0.9)",
+        });
+      } else {
+        zoom.update({
+          background: "rgba(255, 255, 255, 0.9)",
+        });
+      }
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!/Android|iPhone/i.test(navigator.userAgent)) {
+      const zoom = mediumZoom("#mdx img", {
+        margin: 10,
+      });
+      enableZoom(zoom);
+    }
+    // always zoom for p.grid > img
+    const zoomForGrid = mediumZoom("p.grid img", {
+      margin: 10,
+    });
+    enableZoom(zoomForGrid);
+  });
+</script>
+
+<!-- all external link use blank -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll("a");
+    links.forEach((link) => {
+      if (link.hostname !== window.location.hostname) {
+        link.target = "_blank";
+      }
+    });
+  });
+</script>
+
+<!-- add exif info for img -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const imgs = document.querySelectorAll("article img");
+    imgs.forEach((img) => {
+      const exif = img.getAttribute("data-exif");
+      if (exif) {
+        console.log(exif)
+      }
+    });
+  });
+</script>

@@ -1,0 +1,70 @@
+---
+const { prev, next, date } = Astro.props;
+
+import { config } from "@/config";
+
+const { twitter, github } = config.site;
+
+const menus = [
+  {
+    name: "首页",
+    url: "/",
+  },
+];
+
+if (prev) {
+  menus.push({
+    name: "上一篇",
+    url: prev.url,
+  });
+}
+
+if (next) {
+  menus.push({
+    name: "下一篇",
+    url: next.url,
+  });
+}
+
+if (github) {
+  menus.push({
+    name: "Github",
+    url: github,
+  });
+}
+
+if (twitter) {
+  menus.push({
+    name: "Twitter",
+    url: twitter,
+  });
+}
+---
+
+<div class="flex justify-between pt-4">
+  <div>
+    <div class="hidden md:block">发布于 {date}</div>
+  </div>
+  <div id="article-footer">
+    <ul class="list-none flex">
+      {
+        menus.map((menu, index) =>
+          index === 0 ? (
+            <li class="mr-2">
+              <a href={menu.url} class="title-link">
+                {menu.name}
+              </a>
+            </li>
+          ) : (
+            <li class="mr-2">
+              <span class="mr-2">|</span>
+              <a href={menu.url} class="title-link">
+                {menu.name}
+              </a>
+            </li>
+          ),
+        )
+      }
+    </ul>
+  </div>
+</div>
