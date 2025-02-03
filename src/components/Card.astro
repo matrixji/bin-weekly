@@ -6,10 +6,7 @@ import { getYmdFormPost, parseArticleSummary, parseArticleTitle } from "@/util";
 const title = parseArticleTitle(post);
 const dateText = getYmdFormPost(post);
 const summary = parseArticleSummary(post);
-const isDraft =
-  post.frontmatter.draft === true ||
-  title.toLowerCase().includes("draft") ||
-  title.toLowerCase().includes("草稿");
+const isDraft = post.frontmatter.draft === true;
 ---
 
 <a
@@ -32,26 +29,3 @@ const isDraft =
     </span>
   </div>
 </a>
-
-<script>
-  import { config } from "@/config";
-  if (document.location.href.startsWith(config.site.url)) {
-    document.addEventListener("DOMContentLoaded", () => {
-      const cards = document.querySelectorAll("a[data-draft='true']");
-      // hidden
-      cards.forEach((card) => {
-        card.classList.add("hidden");
-      });
-    });
-  } else {
-    // for dev
-    const cards = document.querySelectorAll("a[data-draft='true']");
-    // add opacity and border
-    cards.forEach((card) => {
-      card.classList.add("opacity-60");
-      card.classList.add("border-2");
-      card.classList.add("border-gray-500");
-      card.classList.add("border-dashed");
-    });
-  }
-</script>

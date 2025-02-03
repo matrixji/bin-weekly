@@ -27,7 +27,6 @@ const nextPost = index === 0 ? null : posts[index - 1];
 const articleTitle = parseArticleTitle(post);
 const articleDate = getYmdFormPost(post);
 
-const githubUrl = config.site.github;
 // remove https://github.com/ from url
 const githubRepo = config.site.github.split(".com/")[1];
 const defaultCommentCss = `${config.site.url}/css/comment.css`;

@@ -22,13 +22,34 @@ const allPosts = sortPosts(posts);
       <IndexHeader />
     </Container>
     <Container>
-      <div
-        class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-0 mr-0"
-      >
+      <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-0 mr-0">
         {allPosts.map((p) => <Card post={p} />)}
       </div>
     </Container>
     <ThemeSwitch />
     <Umami />
-  </body>
+  </body><script>
+    import { config } from "@/config";
+    if (document.location.href.startsWith(config.site.url)) {
+      document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll("a[data-draft='true']");
+        // hidden
+        cards.forEach((card) => {
+          card.classList.add("hidden");
+        });
+      });
+    } else {
+      document.addEventListener("DOMContentLoaded", () => {
+        // for dev
+        const cards = document.querySelectorAll("a[data-draft='true']");
+        // add opacity and border
+        cards.forEach((card) => {
+          card.classList.add("opacity-60");
+          card.classList.add("border-2");
+          card.classList.add("border-gray-500");
+          card.classList.add("border-dashed");
+        });
+      });
+    }
+  </script>
 </html>

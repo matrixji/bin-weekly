@@ -12,7 +12,10 @@ const { posts, post } = Astro.props;
       <ul class="pl-2 pr-2 pt-5 h-screen overflow-x-hidden">
         {
           posts.map((p: any) => (
-            <li class="pt-2 max-w-[208px] w-[208px] min-w-[208px] overflow-x-hidden line-clamp-1">
+            <li
+              class="pt-2 max-w-[208px] w-[208px] min-w-[208px] overflow-x-hidden line-clamp-1"
+              data-draft={p.frontmatter.draft}
+            >
               <a
                 href={p.url}
                 class={`${post.url === p.url ? "title-link-active" : "title-link"}`}
@@ -26,3 +29,27 @@ const { posts, post } = Astro.props;
     </div>
   </div>
 </aside>
+
+<script>
+  import { config } from "@/config";
+  if (document.location.href.startsWith(config.site.url)) {
+    document.addEventListener("DOMContentLoaded", () => {
+      // for prod
+      const lis = document.querySelectorAll("li[data-draft]");
+      // add opacity and border
+      lis.forEach((li) => {
+        li.classList.add("hidden");
+      });
+    });
+  } else {
+    document.addEventListener("DOMContentLoaded", () => {
+      // for dev
+      const lis = document.querySelectorAll("li[data-draft]");
+      // add opacity and border
+      lis.forEach((li) => {
+        li.classList.add("opacity-60");
+        li.classList.add("line-through");
+      });
+    });
+  }
+</script>
