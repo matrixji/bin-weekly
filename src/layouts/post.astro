@@ -9,6 +9,7 @@ import ArticleFooter from "../components/ArticleFooter.astro";
 // css for post
 import "../styles/post.css";
 import { config } from "@/config";
+import Umami from "@/components/Umami.astro";
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -75,6 +76,7 @@ const defaultCommentCss = `${config.site.url}/css/comment.css`;
         </div>
       </div>
       <ThemeSwitch />
+      <Umami />
     </div>
   </body>
 </html>

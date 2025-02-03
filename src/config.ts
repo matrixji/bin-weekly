@@ -7,5 +7,6 @@ export const config = {
         url: "https://w.jibin.net",
         github: "https://github.com/matrixji/bin-weekly",
         twitter: "https://twitter.com/matrixji",
+        umami: "8451f513-d7e5-4827-a22d-e06f33ba7461",
     }
 }

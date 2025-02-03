@@ -4,6 +4,7 @@ import Card from "../components/Card.astro";
 import Head from "../components/Head.astro";
 import IndexHeader from "../components/IndexHeader.astro";
 import ThemeSwitch from "../components/ThemeSwitch.astro";
+import Umami from "../components/Umami.astro";
 
 import { sortPosts } from "@/util";
 
@@ -28,5 +29,6 @@ const allPosts = sortPosts(posts);
       </div>
     </Container>
     <ThemeSwitch />
+    <Umami />
   </body>
 </html>
