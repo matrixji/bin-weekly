@@ -104,8 +104,8 @@
     const themeToggle = document.getElementById("theme-toggle");
     const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
     const giscusScript = document.getElementById("giscus-script");
-    const GISCUS_DARK_THEME = "/css/comment-dark.css";
-    const GISCUS_LIGHT_THEME = "/css/comment.css";
+    const GISCUS_DARK_THEME = `${window.location.origin}/css/comment-dark.css`;
+    const GISCUS_LIGHT_THEME = `${window.location.origin}/css/comment.css`;
 
     const updateIframeTheme = (newTheme) => {
       const iframe = document.querySelector("iframe.giscus-frame");

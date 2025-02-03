@@ -8,6 +8,7 @@ import ArticleFooter from "../components/ArticleFooter.astro";
 
 // css for post
 import "../styles/post.css";
+import { config } from "@/config";
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -24,6 +25,12 @@ const nextPost = index === 0 ? null : posts[index - 1];
 
 const articleTitle = parseArticleTitle(post);
 const articleDate = getYmdFormPost(post);
+
+const githubUrl = config.site.github;
+// remove https://github.com/ from url
+const githubRepo = config.site.github.split(".com/")[1];
+const defaultCommentCss = `${config.site.url}/css/comment.css`;
+
 ---
 
 <html lang="zh">
@@ -46,6 +53,25 @@ const articleDate = getYmdFormPost(post);
             <slot />
           </article>
           <ArticleFooter prev={prevPost} next={nextPost} date={articleDate} />
+
+          <script
+            is:inline
+            id="giscus-script"
+            src="https://giscus.app/client.js"
+            data-repo={githubRepo}
+            data-repo-id="R_kgDONKxGsg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDONKxGss4CmngQ"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme={defaultCommentCss}
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async
+          ></script>
         </div>
       </div>
       <ThemeSwitch />
@@ -105,7 +131,7 @@ const articleDate = getYmdFormPost(post);
     imgs.forEach((img) => {
       const exif = img.getAttribute("data-exif");
       if (exif) {
-        console.log(exif)
+        console.log(exif);
       }
     });
   });
