@@ -8,9 +8,9 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "prestart": "node scripts/compress_fonts.js && python py/patch_post_images.py",
-    "predev": "node scripts/compress_fonts.js && python py/patch_post_images.py",
-    "prebuild": "node scripts/compress_fonts.js && python py/patch_post_images.py"
+    "prestart": "python py/patch_post_images.py",
+    "predev": "python py/patch_post_images.py",
+    "prebuild": "python py/patch_post_images.py"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
