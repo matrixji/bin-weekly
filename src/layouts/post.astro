@@ -30,7 +30,6 @@ const articleDate = getYmdFormPost(post);
 // remove https://github.com/ from url
 const githubRepo = config.site.github.split(".com/")[1];
 const defaultCommentCss = `${config.site.url}/css/comment.css`;
-
 ---
 
 <html lang="zh">
@@ -70,8 +69,7 @@ const defaultCommentCss = `${config.site.url}/css/comment.css`;
             data-theme={defaultCommentCss}
             data-lang="zh-CN"
             crossorigin="anonymous"
-            async
-          ></script>
+            async></script>
         </div>
       </div>
       <ThemeSwitch />
@@ -104,12 +102,13 @@ const defaultCommentCss = `${config.site.url}/css/comment.css`;
         margin: 10,
       });
       enableZoom(zoom);
+    } else {
+      // always zoom for p.grid > img
+      const zoomForGrid = mediumZoom("p.grid img", {
+        margin: 10,
+      });
+      enableZoom(zoomForGrid);
     }
-    // always zoom for p.grid > img
-    const zoomForGrid = mediumZoom("p.grid img", {
-      margin: 10,
-    });
-    enableZoom(zoomForGrid);
   });
 </script>
 
