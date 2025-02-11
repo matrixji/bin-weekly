@@ -9,6 +9,7 @@ const menus = [
   {
     name: "首页",
     url: "/",
+    hiddenInMobile: false,
   },
 ];
 
@@ -16,6 +17,7 @@ if (prev) {
   menus.push({
     name: "上一篇",
     url: prev.url,
+    hiddenInMobile: true,
   });
 }
 
@@ -23,6 +25,7 @@ if (next) {
   menus.push({
     name: "下一篇",
     url: next.url,
+    hiddenInMobile: true,
   });
 }
 
@@ -30,6 +33,7 @@ if (github) {
   menus.push({
     name: "Github",
     url: github,
+    hiddenInMobile: false,
   });
 }
 
@@ -37,6 +41,7 @@ if (twitter) {
   menus.push({
     name: "Twitter",
     url: twitter,
+    hiddenInMobile: false,
   });
 }
 ---
@@ -48,23 +53,18 @@ if (twitter) {
   <div id="article-footer">
     <ul class="list-none flex">
       {
-        menus.map((menu, index) =>
-          index === 0 ? (
-            <li class="mr-2">
+        menus.map((menu, index) => {
+          const className = menu.hiddenInMobile ? "hidden md:block mr-2" : "mr-2";
+          const extraSpan = index === 0 ? "" : <span class="mr-2">|</span>;
+          return (
+            <li class={className}>
+              {extraSpan}
               <a href={menu.url} class="title-link">
                 {menu.name}
               </a>
             </li>
-          ) : (
-            <li class="mr-2">
-              <span class="mr-2">|</span>
-              <a href={menu.url} class="title-link">
-                {menu.name}
-              </a>
-            </li>
-          ),
-        )
-      }
+          );
+        })
     </ul>
   </div>
 </div>
