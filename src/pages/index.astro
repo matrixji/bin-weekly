@@ -5,10 +5,13 @@ import Head from "../components/Head.astro";
 import IndexHeader from "../components/IndexHeader.astro";
 import ThemeSwitch from "../components/ThemeSwitch.astro";
 import Umami from "../components/Umami.astro";
+import type { MarkdownInstance } from "astro";
 
 import { sortPosts } from "@/util";
 
-const posts = await Astro.glob("./posts/*.md");
+const posts = Object.values<MarkdownInstance<Record<string, any>>>(
+  import.meta.glob("./posts/*.md", { eager: true }),
+);
 const allPosts = sortPosts(posts);
 ---
 

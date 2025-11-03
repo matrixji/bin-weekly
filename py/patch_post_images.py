@@ -20,12 +20,29 @@ def create_exif_for_webp(filepath):
             with open(exif_filepath, 'w') as f:
                 f.write(f'by: {camera_make} {camera_model}, {datetime}')
 
+def lookup_original_image(images_dir, filepath):
+    filepath = filepath.replace('/images/d/', '/images/')
+    lookup_dir = os.path.join(images_dir, os.path.dirname(filepath[1:]))
+    for file in os.listdir(lookup_dir):
+        filename_converted = file.replace('_', '-').lower().rsplit('.', 1)[0] + '.webp'
+        if filename_converted == os.path.basename(filepath):
+            return os.path.join(lookup_dir, file)
+    return None
+
+def check_if_newer(file1, file2):
+    if not file1 or not file2:
+        return False
+    if not os.path.exists(file1):
+        return False
+    if not os.path.exists(file2):
+        return True
+    return os.path.getmtime(file1) > os.path.getmtime(file2)
+
 
 def patch_md_images(md_file, images_dir, dest_images_dir):
     print(f'Patching {md_file} ...')
     with open(md_file, 'r') as f:
         lines = f.readlines()
-    first_done = False
     for i, line in enumerate(lines):
         strip_line = line.strip()
         if strip_line.startswith('!['):
@@ -46,16 +63,22 @@ def patch_md_images(md_file, images_dir, dest_images_dir):
             else:
                 d_filepath = filepath
             d_filepath_full = os.path.join(dest_images_dir, d_filepath[1:])
+            if d_filepath == filepath:
+                # check if original need transform again
+                original_image = lookup_original_image(images_dir,d_filepath)
+                if check_if_newer(original_image, d_filepath_full):
+                    os.makedirs(os.path.dirname(d_filepath_full), exist_ok=True)
+                    transform(original_image, d_filepath_full)
+                    print(f'Updated {d_filepath_full} from {original_image}')
             if not os.path.exists(d_filepath_full):
                 os.makedirs(os.path.dirname(d_filepath_full), exist_ok=True)
                 input = os.path.join(images_dir, filepath[1:])
                 transform(input, d_filepath_full)
                 print(f'Converted {input} to {d_filepath_full}')
             d_thumb_filepath = d_filepath_full.replace('.webp', '-thumb.webp')
-            if not first_done and not os.path.exists(d_thumb_filepath):
+            if check_if_newer(d_filepath_full, d_thumb_filepath):
                 transform(d_filepath_full, d_thumb_filepath, max_height=300)
                 print(f'Converted {d_filepath_full} to {d_thumb_filepath}')
-                first_done = True
             lines[i] = line.replace(filepath, d_filepath)
             # create_exif_for_webp(d_filepath_full)
     with open(md_file, 'w') as f:
