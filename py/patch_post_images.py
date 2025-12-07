@@ -77,7 +77,7 @@ def patch_md_images(md_file, images_dir, dest_images_dir):
                 print(f'Converted {input} to {d_filepath_full}')
             d_thumb_filepath = d_filepath_full.replace('.webp', '-thumb.webp')
             if check_if_newer(d_filepath_full, d_thumb_filepath):
-                transform(d_filepath_full, d_thumb_filepath, max_height=300)
+                transform(d_filepath_full, d_thumb_filepath, max_height=384)
                 print(f'Converted {d_filepath_full} to {d_thumb_filepath}')
             lines[i] = line.replace(filepath, d_filepath)
             # create_exif_for_webp(d_filepath_full)
