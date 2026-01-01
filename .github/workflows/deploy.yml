@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "main"
+      - "year2025"
 
 jobs:
   deploy-site:
@@ -27,4 +28,10 @@ jobs:
           known_hosts: ~/.ssh/known_hosts
       - name: deploy site
         run: |
-          rsync -avpz -e "ssh -o StrictHostKeyChecking=no" --delete dist/ root@c4.jibin.net:/opt/w.jibin.net
+          branch=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
+          if [ "$branch" = "year2025" ]; then
+            rsync -avpz -e "ssh -o StrictHostKeyChecking=no" --delete dist/ root@c4.jibin.net:/opt/w25.jibin.net
+          else
+            rsync -avpz -e "ssh -o StrictHostKeyChecking=no" --delete dist/ root@c4.jibin.net:/opt/w.jibin.net
+          fi
+          echo "Deployed to $branch branch"
